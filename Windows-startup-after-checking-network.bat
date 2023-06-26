@@ -41,11 +41,8 @@ GOTO :EOF
 REM -- list of websites to open on startup
 :launchwebsites
 start http://hostname
-timeout 10
 start http://Second-Intra-Website
-timeout 10
 start https://jira/issues/
-timeout 10
 start https://www.worldtimebuddy.com/
 GOTO :EOF
 
