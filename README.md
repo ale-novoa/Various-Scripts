@@ -84,7 +84,8 @@ from a backup.
 ```sql
 --/### HOW TO CHECK THE LAST REFRESH OF A DATABASE ###/
 
-use MSDB go
+use MSDB;
+go
 
 SELECT MAX(restore_date) as LAST_RESTORE_DT
 FROM restorehistory
@@ -106,8 +107,10 @@ refreshed/restored environment (e.g. a QA or Dev database restored from a
 Prod backup) was actually last refreshed, without digging through backup
 job history manually.
 
-> Note: the `use MSDB go` line is missing the statement separator — it should
-> be `USE MSDB;` followed by `GO` on its own line (or its own batch) for this
-> to run as written in SQL Server Management Studio. As currently written,
-> most SQL clients will either error on it or ignore `go` as an unrecognized
-> token depending on the client's batch-separator handling.
+> Note: `GO` is not a T-SQL keyword — it's a client-side batch separator that
+> SSMS/sqlcmd/Azure Data Studio only recognize when it sits alone on its own
+> line. It originally shared a line with `USE MSDB`, so no client tool would
+> treat it as a separator; it would just be forwarded to the engine as
+> literal text and fail with a syntax error. Fixed by putting `GO` on its
+> own line (adding the `;` after `USE MSDB` is just good practice, not the
+> actual fix — `GO` still has to be alone on its line either way).
