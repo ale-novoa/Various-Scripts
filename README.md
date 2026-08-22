@@ -9,24 +9,24 @@ database tasks.
 
 A Windows batch script that waits until a specific network/VPN connection is
 reachable, then automatically opens a set of everyday websites and
-applications — meant to run at Windows startup or login instead of manually
+applications, meant to run at Windows startup or login instead of manually
 opening the same tabs and apps every morning.
 
 **What it does**
 
-1. **`checkconnection`** — pings the host configured in `servertoping`
-   (currently set to the placeholder `hostname` — replace with a real
+1. **`checkconnection`**: pings the host configured in `servertoping`
+   (currently set to the placeholder `hostname`, replace with a real
    internal server/IP that's only reachable once you're on the right
    network/VPN) with a single ping (`ping -n 1`). If the reply contains
    `TTL=` (i.e. a real response came back), it considers the network
    connected.
-2. **`startup`** — calls `checkconnection`. If connected, it calls
+2. **`startup`**: calls `checkconnection`. If connected, it calls
    `launchwebsites` and `launchapps`. If not, it waits 10 seconds and retries,
    up to **7 attempts** (about 70 seconds total) before giving up.
-3. **`launchwebsites`** — opens a fixed list of URLs in the default browser
+3. **`launchwebsites`**: opens a fixed list of URLs in the default browser
    (currently intranet/homepage placeholders, a Jira issues view, and
    worldtimebuddy.com).
-4. **`launchapps`** — launches a fixed list of desktop applications
+4. **`launchapps`**: launches a fixed list of desktop applications
    (currently Notepad++ and a placeholder second app).
 5. On exit, prints whether startup actions were performed or whether the
    retry limit was reached without ever detecting the network.
@@ -69,7 +69,7 @@ Results are sorted by schema, then table name.
 **How it's used**
 
 Run against any SQL Server database when you need to find every table that
-has a column matching a naming pattern — useful for things like "which
+has a column matching a naming pattern, useful for things like "which
 tables have an audit/creation-date column" without having to check the
 schema of every table by hand. Change the string inside the `LIKE` clause to
 search for a different column-name pattern.
@@ -107,10 +107,10 @@ refreshed/restored environment (e.g. a QA or Dev database restored from a
 Prod backup) was actually last refreshed, without digging through backup
 job history manually.
 
-> Note: `GO` is not a T-SQL keyword — it's a client-side batch separator that
+> Note: `GO` is not a T-SQL keyword. It's a client-side batch separator that
 > SSMS/sqlcmd/Azure Data Studio only recognize when it sits alone on its own
 > line. It originally shared a line with `USE MSDB`, so no client tool would
 > treat it as a separator; it would just be forwarded to the engine as
 > literal text and fail with a syntax error. Fixed by putting `GO` on its
 > own line (adding the `;` after `USE MSDB` is just good practice, not the
-> actual fix — `GO` still has to be alone on its line either way).
+> actual fix; `GO` still has to be alone on its line either way).
